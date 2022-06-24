@@ -1,0 +1,15 @@
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:fn="http://architolk.nl/fn"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:j.0="http://bp4mc2.org/def/xml#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+  <j.0:Root rdf:about="urn:uuid:d1e1">
+    <j.0:entry>
+      <j.0:Entry rdf:about="urn:uuid:d1e3">
+        <j.0:text>blub</j.0:text>
+        <j.0:attr>hoi</j.0:attr>
+      </j.0:Entry>
+    </j.0:entry>
+  </j.0:Root>
+</rdf:RDF>

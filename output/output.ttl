@@ -1,0 +1,12 @@
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix fn:    <http://architolk.nl/fn> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xs:    <http://www.w3.org/2001/XMLSchema> .
+@prefix xmlvoc: <http://bp4mc2.org/def/xml#> .
+
+<urn:uuid:d1e1>  a    xmlvoc:Root ;
+        xmlvoc:entry  <urn:uuid:d1e3> .
+
+<urn:uuid:d1e3>  a   xmlvoc:Entry ;
+        xmlvoc:attr  "hoi" ;
+        xmlvoc:text  "blub" .

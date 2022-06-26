@@ -1,12 +1,12 @@
 @prefix schema: <urn:file:input.xsd#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix fn:    <http://architolk.nl/fn> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xs:    <http://www.w3.org/2001/XMLSchema> .
 
 schema:itemtype.title
         a           xs:Element ;
         rdfs:label  "title" ;
-        xs:index    "1" ;
         xs:type     schema:stringtype .
 
 schema:orderidtype  a   xs:SimpleType ;
@@ -19,25 +19,21 @@ schema:orderidtype  a   xs:SimpleType ;
 schema:shipordertype.orderperson
         a           xs:Element ;
         rdfs:label  "orderperson" ;
-        xs:index    "1" ;
-        xs:type     schema:stringtype .
-
-schema:shiptotype.address
-        a           xs:Element ;
-        rdfs:label  "address" ;
-        xs:index    "2" ;
         xs:type     schema:stringtype .
 
 schema:itemtype.quantity
         a           xs:Element ;
         rdfs:label  "quantity" ;
-        xs:index    "3" ;
         xs:type     schema:inttype .
+
+schema:shiptotype.address
+        a           xs:Element ;
+        rdfs:label  "address" ;
+        xs:type     schema:stringtype .
 
 schema:shiptotype.city
         a           xs:Element ;
         rdfs:label  "city" ;
-        xs:index    "3" ;
         xs:type     schema:stringtype .
 
 schema:dectype  a       xs:SimpleType ;
@@ -48,12 +44,13 @@ schema:dectype  a       xs:SimpleType ;
 
 schema:itemtype  a   xs:ComplexType ;
         rdfs:label   "itemtype" ;
-        xs:sequence  schema:itemtype.price , schema:itemtype.quantity , schema:itemtype.note , schema:itemtype.title .
+        xs:sequence  [ a           xs:Sequence ;
+                       xs:element  schema:itemtype.price , schema:itemtype.quantity , schema:itemtype.note , schema:itemtype.title
+                     ] .
 
 schema:shipordertype.item
         a             xs:Element ;
         rdfs:label    "item" ;
-        xs:index      "3" ;
         xs:maxOccurs  "unbounded" ;
         xs:type       schema:itemtype .
 
@@ -61,15 +58,14 @@ schema:shiporder  a  xs:Element ;
         rdfs:label  "shiporder" ;
         xs:type     schema:shipordertype .
 
-schema:  a          xs:Schema ;
-        rdfs:label  "urn:file:input.xsd#" ;
-        xs:element  schema:shiporder .
-
 schema:itemtype.note  a  xs:Element ;
         rdfs:label    "note" ;
-        xs:index      "2" ;
-        xs:minOccurs  "0" ;
+        xs:minOccurs  0 ;
         xs:type       schema:stringtype .
+
+schema:  a          xs:Schema ;
+        xs:element  schema:shiporder ;
+        xs:type     schema:shipordertype , schema:itemtype , schema:shiptotype , schema:orderidtype , schema:dectype , schema:inttype , schema:stringtype .
 
 schema:stringtype  a    xs:SimpleType ;
         rdfs:label      "stringtype" ;
@@ -80,7 +76,6 @@ schema:stringtype  a    xs:SimpleType ;
 schema:shipordertype.shipto
         a           xs:Element ;
         rdfs:label  "shipto" ;
-        xs:index    "2" ;
         xs:type     schema:shiptotype .
 
 schema:inttype  a       xs:SimpleType ;
@@ -91,33 +86,32 @@ schema:inttype  a       xs:SimpleType ;
 
 schema:shipordertype  a  xs:ComplexType ;
         rdfs:label    "shipordertype" ;
-        xs:attribute  schema:shipordertype.orderid ;
-        xs:sequence   schema:shipordertype.item , schema:shipordertype.shipto , schema:shipordertype.orderperson .
+        xs:attribute  [ a           xs:Attribute ;
+                        rdfs:label  "orderid" ;
+                        xs:type     schema:orderidtype ;
+                        xs:use      "required"
+                      ] ;
+        xs:sequence   [ a           xs:Sequence ;
+                        xs:element  schema:shipordertype.item , schema:shipordertype.shipto , schema:shipordertype.orderperson
+                      ] .
 
 schema:itemtype.price
         a           xs:Element ;
         rdfs:label  "price" ;
-        xs:index    "4" ;
         xs:type     schema:dectype .
-
-schema:shipordertype.orderid
-        a           xs:Attribute ;
-        rdfs:label  "orderid" ;
-        xs:type     schema:orderidtype ;
-        xs:use      "required" .
 
 schema:shiptotype  a  xs:ComplexType ;
         rdfs:label   "shiptotype" ;
-        xs:sequence  schema:shiptotype.country , schema:shiptotype.city , schema:shiptotype.address , schema:shiptotype.name .
+        xs:sequence  [ a           xs:Sequence ;
+                       xs:element  schema:shiptotype.country , schema:shiptotype.city , schema:shiptotype.address , schema:shiptotype.name
+                     ] .
 
 schema:shiptotype.country
         a           xs:Element ;
         rdfs:label  "country" ;
-        xs:index    "4" ;
         xs:type     schema:stringtype .
 
 schema:shiptotype.name
         a           xs:Element ;
         rdfs:label  "name" ;
-        xs:index    "1" ;
         xs:type     schema:stringtype .

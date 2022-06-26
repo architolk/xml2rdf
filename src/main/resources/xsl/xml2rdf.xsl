@@ -3,10 +3,17 @@
 	xmlns:xs="http://www.w3.org/2001/XMLSchema"
 	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
 	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
-	xmlns:xmlvoc="http://bp4mc2.org/def/xml#"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 
 	xmlns:fn="http://architolk.nl/fn"
 >
+
+  <xsl:variable name="namespace">
+    <xsl:choose>
+      <xsl:when test="/*/@xsi:noNamespaceSchemaLocation!=''">urn:file:<xsl:value-of select="/*/@xsi:noNamespaceSchemaLocation"/>#</xsl:when>
+      <xsl:otherwise>urn:name:schema#</xsl:otherwise>
+    </xsl:choose>
+  </xsl:variable>
 
 	<xsl:function name="fn:upperCamelCase" as="xs:string">
 		<xsl:param name="input" as="xs:string"/>
@@ -19,7 +26,7 @@
 	</xsl:function>
 
 	<xsl:template match="*[(count(*)+count(@*))>0]" mode="property">
-		<xsl:element name="xmlvoc:{fn:lowerCamelCase(local-name())}">
+		<xsl:element namespace="{$namespace}" name="{fn:lowerCamelCase(local-name())}">
 			<xsl:attribute name="rdf:resource">urn:uuid:<xsl:value-of select="generate-id()"/></xsl:attribute>
 		</xsl:element>
 	</xsl:template>
@@ -27,7 +34,7 @@
 	<xsl:template match="*" mode="property">
 		<!--Don't show empty properties -->
 		<xsl:if test=".!=''">
-			<xsl:element name="xmlvoc:{fn:lowerCamelCase(local-name())}">
+			<xsl:element namespace="{$namespace}" name="{fn:lowerCamelCase(local-name())}">
 				<xsl:value-of select="."/>
 			</xsl:element>
 		</xsl:if>
@@ -36,14 +43,14 @@
 	<xsl:template match="@*" mode="attribute">
 		<!--Don't show empty properties -->
 		<xsl:if test=".!=''">
-			<xsl:element name="xmlvoc:{fn:lowerCamelCase(local-name())}">
+			<xsl:element namespace="{$namespace}" name="{fn:lowerCamelCase(local-name())}">
 				<xsl:value-of select="."/>
 			</xsl:element>
 		</xsl:if>
 	</xsl:template>
 
 	<xsl:template match="*" mode="node">
-		<xsl:element name="xmlvoc:{fn:upperCamelCase(local-name())}">
+		<xsl:element namespace="{$namespace}" name="{fn:upperCamelCase(local-name())}">
 			<xsl:attribute name="rdf:about">urn:uuid:<xsl:value-of select="generate-id()"/></xsl:attribute>
 			<xsl:apply-templates select="@*" mode="attribute"/>
 			<xsl:apply-templates select="*" mode="property"/>
@@ -53,8 +60,9 @@
 
 	<xsl:template match="/">
 		<rdf:RDF>
+      <!--<xsl:namespace name="schema"><xsl:value-of select="$namespace"/></xsl:namespace>-->
 			<xsl:for-each select="*[local-name()!='container' and local-name()!='file']">
-				<xsl:element name="xmlvoc:{fn:upperCamelCase(local-name())}">
+				<xsl:element namespace="{$namespace}" name="{fn:upperCamelCase(local-name())}">
 					<xsl:attribute name="rdf:about">urn:uuid:<xsl:value-of select="generate-id()"/></xsl:attribute>
 					<xsl:apply-templates select="@*" mode="attribute"/>
 					<xsl:apply-templates select="*" mode="property"/>

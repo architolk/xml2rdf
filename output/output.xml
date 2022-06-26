@@ -1,15 +1,36 @@
 <rdf:RDF
     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns="urn:file:shiporder.xsd#"
     xmlns:fn="http://architolk.nl/fn"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
-    xmlns:j.0="http://bp4mc2.org/def/xml#"
     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
-  <j.0:Root rdf:about="urn:uuid:d1e1">
-    <j.0:entry>
-      <j.0:Entry rdf:about="urn:uuid:d1e3">
-        <j.0:text>blub</j.0:text>
-        <j.0:attr>hoi</j.0:attr>
-      </j.0:Entry>
-    </j.0:entry>
-  </j.0:Root>
+  <Shiporder rdf:about="urn:uuid:d1e1">
+    <item>
+      <Item rdf:about="urn:uuid:d1e36">
+        <price>9.90</price>
+        <quantity>1</quantity>
+        <title>Hide your heart</title>
+      </Item>
+    </item>
+    <item>
+      <Item rdf:about="urn:uuid:d1e21">
+        <price>10.90</price>
+        <quantity>1</quantity>
+        <note>Special Edition</note>
+        <title>Empire Burlesque</title>
+      </Item>
+    </item>
+    <shipto>
+      <Shipto rdf:about="urn:uuid:d1e6">
+        <country>Norway</country>
+        <city>4000 Stavanger</city>
+        <address>Langgt 23</address>
+        <name>Ola Nordmann</name>
+      </Shipto>
+    </shipto>
+    <orderperson>John Smith</orderperson>
+    <noNamespaceSchemaLocation>shiporder.xsd</noNamespaceSchemaLocation>
+    <orderid>889923</orderid>
+  </Shiporder>
 </rdf:RDF>

@@ -1,12 +1,30 @@
+@prefix :      <urn:file:shiporder.xsd#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix fn:    <http://architolk.nl/fn> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xs:    <http://www.w3.org/2001/XMLSchema> .
-@prefix xmlvoc: <http://bp4mc2.org/def/xml#> .
+@prefix xsi:   <http://www.w3.org/2001/XMLSchema-instance> .
 
-<urn:uuid:d1e1>  a    xmlvoc:Root ;
-        xmlvoc:entry  <urn:uuid:d1e3> .
+<urn:uuid:d1e36>  a  :Item ;
+        :price     "9.90" ;
+        :quantity  "1" ;
+        :title     "Hide your heart" .
 
-<urn:uuid:d1e3>  a   xmlvoc:Entry ;
-        xmlvoc:attr  "hoi" ;
-        xmlvoc:text  "blub" .
+<urn:uuid:d1e1>  a                  :Shiporder ;
+        :item                       <urn:uuid:d1e36> , <urn:uuid:d1e21> ;
+        :noNamespaceSchemaLocation  "shiporder.xsd" ;
+        :orderid                    "889923" ;
+        :orderperson                "John Smith" ;
+        :shipto                     <urn:uuid:d1e6> .
+
+<urn:uuid:d1e6>  a  :Shipto ;
+        :address  "Langgt 23" ;
+        :city     "4000 Stavanger" ;
+        :country  "Norway" ;
+        :name     "Ola Nordmann" .
+
+<urn:uuid:d1e21>  a  :Item ;
+        :note      "Special Edition" ;
+        :price     "10.90" ;
+        :quantity  "1" ;
+        :title     "Empire Burlesque" .

@@ -1,0 +1,8 @@
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rtf:   <http://example.org/def/rtf#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xs:    <http://www.w3.org/2001/XMLSchema> .
+
+<urn:name:test>  rdfs:comment  "Dit <is> vetgedrukte tekst." ;
+        rtf:asHTML    "<html>\n <head></head>\n <body>\n  <p><span>Dit &lt;is&gt; </span><span>vetgedrukte</span><span> tekst.</span></p>\n  <p></p>\n </body>\n</html>" ;
+        rtf:asRTF     "{\\rtf1\\ansi{\\fonttbl\\f0\\fswiss Helvetica;}\\f0\\pard\nDit <is> {\\b vetgedrukte} tekst.\\par\n}" .
